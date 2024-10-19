@@ -1,6 +1,47 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     id 'java'
+    id "com.vanniktech.maven.publish" version "0.30.0"
+    id 'signing'
 }
 
 group = 'com.github.jthugg'
 version = '0.0.1'
+
+signing {
+    sign publishing.publications
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+    coordinates('io.github.jthugg', 'my-open-source', '0.0.1')
+
+    pom {
+        name = 'my-open-source'
+        description = 'saying hi'
+        url = '<https://github.com/jthugg/my-open-source>'
+
+        licenses {
+            license {
+                name = 'The Unlicense'
+                url = '<https://github.com/jthugg/my-open-source/blob/main/LICENSE>'
+            }
+        }
+
+        developers {
+            developer {
+                id = 'jthugg'
+                name = 'neo'
+                email = 'jthug@naver.com'
+            }
+        }
+
+        scm {
+            connection = 'scm:git:github.com/jthugg/my-open-source.git'
+            developerConnection = 'scm:git:ssh://github.com:jthugg/my-open-source.git'
+            url = '<https://github.com/jthugg/my-open-source/tree/main>'
+        }
+    }
+}
